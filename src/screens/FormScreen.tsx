@@ -2,10 +2,12 @@
 import React, {useCallback, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
-import PasswordInput from './PasswordInput';
-import TextInputConfigurable from './TextInputConfigurable';
-import CitiesDropdown from './CitiesDropdown';
+import PasswordInput from '../components/PasswordInput';
+import TextInputConfigurable from '../components/TextInputConfigurable';
+import CitiesDropdown from '../components/CitiesDropdown';
 import {THEME} from '../theme';
+import ImagePicker from '../components/ImagePicker';
+import ImageViewArea from './../components/ImageViewArea';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -16,6 +18,8 @@ const Form = () => {
   const [pickerValue, setPickerValue] = useState('Киев');
 
   const [focused, setFocused] = useState(false);
+
+  const [images, setImages] = useState([]);
 
   const handleFocus = useCallback(() => setFocused(true), [setFocused]);
 
@@ -67,6 +71,10 @@ const Form = () => {
         pickerValue={pickerValue}
         setPickerValue={setPickerValue}
       />
+
+      <ImagePicker setImages={setImages} />
+
+      {images.length ? <ImageViewArea images={images} /> : null}
 
       <TouchableOpacity
         style={styles.button}

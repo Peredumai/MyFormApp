@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import Form from './components/Form';
+import Form from './screens/FormScreen';
 
 const App = () => {
   return (
