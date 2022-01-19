@@ -1,19 +1,25 @@
-import React, {useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useCallback, useState} from 'react';
+import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
 import PasswordInput from './PasswordInput';
+import TextInputConfigurable from './TextInputConfigurable';
+import CitiesDropdown from './CitiesDropdown';
+import {THEME} from '../theme';
 
 const Form = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [pickerValue, setPickerValue] = useState('Киев');
+
+  const [focused, setFocused] = useState(false);
+
+  const handleFocus = useCallback(() => setFocused(true), [setFocused]);
+
+  const handleBlur = useCallback(() => setFocused(false), [setFocused]);
 
   const passwordInputProps = {
     password,
@@ -22,16 +28,19 @@ const Form = () => {
 
   return (
     <ScrollView style={styles.view}>
-      <TextInput
+      <TextInputConfigurable
         placeholder="ФИО"
-        style={styles.textInput}
         value={name}
-        onChangeText={text => setName(text)}
-        caretHidden={true}
+        setValue={setName}
       />
       <TextInputMask
         placeholder="Телефон"
-        style={styles.textInput}
+        style={[
+          styles.textInput,
+          {
+            borderColor: focused ? THEME.BLUE_COLOR : THEME.GREY_COLOR,
+          },
+        ]}
         type={'cel-phone'}
         caretHidden={true}
         options={{
@@ -43,18 +52,25 @@ const Form = () => {
         onChangeText={text => {
           setPhone(text);
         }}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
-      <TextInput
+      <TextInputConfigurable
         placeholder="Почта"
-        style={styles.textInput}
-        caretHidden={true}
         value={email}
-        onChangeText={text => setEmail(text)}
+        setValue={setEmail}
       />
 
       <PasswordInput {...passwordInputProps} />
 
-      <TouchableOpacity>
+      <CitiesDropdown
+        pickerValue={pickerValue}
+        setPickerValue={setPickerValue}
+      />
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => console.log(name, phone, email, password, pickerValue)}>
         <Text>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -63,16 +79,25 @@ const Form = () => {
 
 const styles = StyleSheet.create({
   view: {
-    marginTop: 60,
+    paddingTop: 60,
   },
   textInput: {
     borderWidth: 1,
     textAlign: 'center',
-    borderColor: 'grey',
+    borderColor: THEME.GREY_COLOR,
     margin: 10,
     marginHorizontal: 40,
     borderRadius: 4,
     padding: 10,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: THEME.BLUE_COLOR,
+    width: 100,
+    padding: 10,
+    borderRadius: 4,
+    alignSelf: 'flex-end',
+    marginRight: 50,
   },
 });
 
