@@ -32,7 +32,9 @@ const PasswordInput = ({password, setPassword}: PasswordInputProps) => {
         onChangeText={text => {
           setPassword(text);
         }}
-        caretHidden={true}
+        caretHidden={
+          password.length === 1 || password.length === 0 ? true : false
+        }
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
@@ -41,7 +43,9 @@ const PasswordInput = ({password, setPassword}: PasswordInputProps) => {
         size={20}
         style={styles.searchIcon}
         color={THEME.GREY_COLOR}
-        onPress={() => setHidePass(!hidePass)}
+        onPress={() => {
+          setHidePass(!hidePass);
+        }}
       />
     </View>
   );

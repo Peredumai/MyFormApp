@@ -1,4 +1,4 @@
-import {StyleSheet, Image, View} from 'react-native';
+import {StyleSheet, Image, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -11,13 +11,11 @@ export default function ImageWrapper({path, deleteHandler}: ImageWrapperProps) {
   return (
     <View>
       <Image key={path} style={styles.stretch} source={{uri: path}} />
-      <Icon
-        name={'times'}
-        size={15}
+      <TouchableOpacity
         style={styles.closeIcon}
-        color={'red'}
-        onPress={() => deleteHandler(path)}
-      />
+        onPress={() => deleteHandler(path)}>
+        <Icon name={'times'} size={15} color={'red'} />
+      </TouchableOpacity>
     </View>
   );
 }

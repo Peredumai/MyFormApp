@@ -37,13 +37,8 @@ const Form = () => {
     [images],
   );
 
-  const passwordInputProps = {
-    password,
-    setPassword,
-  };
-
   return (
-    <ScrollView style={styles.view}>
+    <ScrollView contentContainerStyle={styles.view}>
       <TextInputConfigurable
         placeholder="ФИО"
         value={name}
@@ -58,9 +53,10 @@ const Form = () => {
           },
         ]}
         type={'cel-phone'}
-        caretHidden={true}
+        keyboardType={'numeric'}
+        maxLength={18}
+        caretHidden={phone.length === 1 || phone.length === 0 ? true : false}
         options={{
-          maskType: 'BRL',
           withDDD: true,
           dddMask: '(380) 99-999-99-99',
         }}
@@ -77,7 +73,7 @@ const Form = () => {
         setValue={setEmail}
       />
 
-      <PasswordInput {...passwordInputProps} />
+      <PasswordInput password={password} setPassword={setPassword} />
 
       <CitiesDropdown
         pickerValue={pickerValue}

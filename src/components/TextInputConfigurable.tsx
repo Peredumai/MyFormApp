@@ -18,9 +18,10 @@ const TextInputConfigurable = ({
   const handleFocus = useCallback(() => setFocused(true), [setFocused]);
 
   const handleBlur = useCallback(() => setFocused(false), [setFocused]);
-
   return (
     <TextInput
+      autoCapitalize={'words'}
+      caretHidden={value.length === 1 || value.length === 0 ? true : false}
       placeholder={placeholder}
       style={[
         styles.textInput,
@@ -29,8 +30,9 @@ const TextInputConfigurable = ({
         },
       ]}
       value={value}
-      onChangeText={text => setValue(text)}
-      caretHidden={true}
+      onChangeText={text => {
+        setValue(text);
+      }}
       onFocus={handleFocus}
       onBlur={handleBlur}
     />
