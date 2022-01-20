@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
   },
   closeIcon: {
-    // padding: 10,
     position: 'absolute',
     right: 2,
     top: -2,

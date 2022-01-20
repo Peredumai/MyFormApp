@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {StyleSheet, TextInput} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {THEME} from '../theme';

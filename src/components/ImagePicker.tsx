@@ -1,15 +1,16 @@
 import {Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {Dispatch, SetStateAction} from 'react';
+import React from 'react';
 
 import ImagePicker from 'react-native-image-crop-picker';
+import {Image} from './../screens/FormScreen';
 
 interface ImagePickerCompProps {
-  setImages: Dispatch<SetStateAction<never[]>>;
+  setImages: (prevState: any) => Image[] | void;
 }
 
 export default function ImagePickerComp({setImages}: ImagePickerCompProps) {
   const openImagePicker = () => {
-    let imageList: [] = [];
+    let imageList: Image[] = [];
 
     ImagePicker.openPicker({
       multiple: true,
@@ -22,15 +23,13 @@ export default function ImagePickerComp({setImages}: ImagePickerCompProps) {
       includeBase64: true,
     })
       .then(res => {
-        console.log('response', res);
         res.map(img => {
           imageList.push({
             filename: img.filename,
             path: img.path,
-            data: img.data,
           });
         });
-        setImages(prevState => {
+        setImages((prevState: Image[]) => {
           const output = prevState.concat(imageList).slice(0, 5);
           return output;
         });
@@ -42,7 +41,7 @@ export default function ImagePickerComp({setImages}: ImagePickerCompProps) {
 
   return (
     <TouchableOpacity style={styles.view} onPress={openImagePicker}>
-      <Text style={{color: 'white'}}>Добавить фото</Text>
+      <Text style={styles.text}>Добавить фото</Text>
     </TouchableOpacity>
   );
 }
@@ -55,5 +54,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 40,
     alignSelf: 'center',
+  },
+  text: {
+    color: 'white',
   },
 });

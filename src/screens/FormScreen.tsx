@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
@@ -8,6 +7,11 @@ import CitiesDropdown from '../components/CitiesDropdown';
 import {THEME} from '../theme';
 import ImagePicker from '../components/ImagePicker';
 import ImageViewArea from './../components/ImageViewArea';
+
+export interface Image {
+  path: string;
+  filename?: string;
+}
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -19,7 +23,7 @@ const Form = () => {
 
   const [focused, setFocused] = useState(false);
 
-  let [images, setImages] = useState([]);
+  const [images, setImages] = useState([] as Image[]);
 
   const handleFocus = useCallback(() => setFocused(true), [setFocused]);
 
@@ -89,10 +93,10 @@ const Form = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          images = images.map(img => img.path)
-          console.log(name, phone, email, password, pickerValue, images);
+          const outputImages = images.map(img => img.path);
+          console.log(name, phone, email, password, pickerValue, outputImages);
         }}>
-        <Text style={{color: 'white'}}>Submit</Text>
+        <Text style={styles.text}>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -121,6 +125,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     margin: 20,
     alignSelf: 'flex-end',
+  },
+  text: {
+    color: 'white',
   },
 });
 
