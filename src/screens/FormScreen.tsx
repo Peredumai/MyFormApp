@@ -19,11 +19,19 @@ const Form = () => {
 
   const [focused, setFocused] = useState(false);
 
-  const [images, setImages] = useState([]);
+  let [images, setImages] = useState([]);
 
   const handleFocus = useCallback(() => setFocused(true), [setFocused]);
 
   const handleBlur = useCallback(() => setFocused(false), [setFocused]);
+
+  const imageDeleteHandler = useCallback(
+    path => {
+      let filtered = images.filter(img => img.path !== path);
+      setImages(filtered);
+    },
+    [images],
+  );
 
   const passwordInputProps = {
     password,
@@ -74,12 +82,17 @@ const Form = () => {
 
       <ImagePicker setImages={setImages} />
 
-      {images.length ? <ImageViewArea images={images} /> : null}
+      {images.length ? (
+        <ImageViewArea images={images} deleteHandler={imageDeleteHandler} />
+      ) : null}
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => console.log(name, phone, email, password, pickerValue)}>
-        <Text>Submit</Text>
+        onPress={() => {
+          images = images.map(img => img.path)
+          console.log(name, phone, email, password, pickerValue, images);
+        }}>
+        <Text style={{color: 'white'}}>Submit</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -100,12 +113,14 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: THEME.BLUE_COLOR,
-    width: 100,
+    width: 160,
+    height: 50,
     padding: 10,
     borderRadius: 4,
+    margin: 20,
     alignSelf: 'flex-end',
-    marginRight: 50,
   },
 });
 

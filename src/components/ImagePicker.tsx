@@ -1,4 +1,4 @@
-import {View, Button, Text} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {Dispatch, SetStateAction} from 'react';
 
 import ImagePicker from 'react-native-image-crop-picker';
@@ -41,10 +41,19 @@ export default function ImagePickerComp({setImages}: ImagePickerCompProps) {
   };
 
   return (
-    <View>
-      <Button title="add some photos" onPress={openImagePicker}>
-        <Text>bla</Text>
-      </Button>
-    </View>
+    <TouchableOpacity style={styles.view} onPress={openImagePicker}>
+      <Text style={{color: 'white'}}>Добавить фото</Text>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  view: {
+    backgroundColor: '#B0C4DE',
+    width: '60%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    alignSelf: 'center',
+  },
+});

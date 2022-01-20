@@ -1,4 +1,4 @@
 export const THEME = {
   GREY_COLOR: '#ababab',
-  BLUE_COLOR: '#29c5f6',
+  BLUE_COLOR: '#00BFFF',
 };

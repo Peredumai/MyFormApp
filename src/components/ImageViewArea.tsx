@@ -1,15 +1,24 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
+import ImageWrapper from './ImageWrapper';
 
-export default function ImageViewArea({images}) {
+interface ImageViewAreaProps {
+  images: [];
+  deleteHandler: (path: string) => void;
+}
+
+export default function ImageViewArea({
+  images,
+  deleteHandler,
+}: ImageViewAreaProps) {
   return (
     <View style={styles.container}>
       {images.map(item => {
         return (
-          <Image
+          <ImageWrapper
+            path={item.path}
             key={item.path}
-            style={styles.stretch}
-            source={{uri: item.path}}
+            deleteHandler={deleteHandler}
           />
         );
       })}
@@ -18,15 +27,9 @@ export default function ImageViewArea({images}) {
 }
 
 const styles = StyleSheet.create({
-  stretch: {
-    width: '20%',
-    height: 80,
-    borderWidth: 1,
-    borderColor: 'black',
-  },
   container: {
-    marginTop: 10,
+    marginTop: 15,
     flexDirection: 'row',
-    paddingHorizontal: 5,
+    padding: 1,
   },
 });

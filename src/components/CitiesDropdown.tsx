@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: THEME.GREY_COLOR,
     margin: 10,
+    marginBottom: 20,
     marginHorizontal: 40,
     borderRadius: 4,
   },
