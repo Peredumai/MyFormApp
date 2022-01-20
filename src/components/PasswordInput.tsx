@@ -20,6 +20,7 @@ const PasswordInput = ({password, setPassword}: PasswordInputProps) => {
   return (
     <View style={styles.searchSection}>
       <TextInput
+        autoCapitalize={'none'}
         style={[
           styles.textInput,
           {

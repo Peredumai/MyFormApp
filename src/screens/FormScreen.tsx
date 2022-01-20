@@ -38,7 +38,9 @@ const Form = () => {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.view}>
+    <ScrollView
+      contentContainerStyle={styles.view}
+      keyboardShouldPersistTaps={true}>
       <TextInputConfigurable
         placeholder="ФИО"
         value={name}
